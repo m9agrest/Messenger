@@ -33,13 +33,13 @@ public class Message
 
     [DataType(DataType.DateTime)]
     [Display(Name = "Время отправления")]
-    public DateTime Date { get; set; };
+    public DateTime Date { get; set; }
 
 
 
     [DataType(DataType.DateTime)]
     [Display(Name = "Время изменения")]
-    public DateTime DateEdit { get; set; };
+    public DateTime DateEdit { get; set; }
 
 
 
@@ -50,7 +50,7 @@ public class Message
     [MaxLength(1000)]
     [DataType(DataType.MultilineText)]
     [Display(Name = "Текст сообщения")]
-    public string Text { get; set; };
+    public string Text { get; set; }
 
 
 

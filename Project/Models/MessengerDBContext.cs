@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
+
 public class MessengerDBContext : DbContext
 {
     public MessengerDBContext(DbContextOptions<MessengerDBContext> options) : base(options)
@@ -8,7 +9,9 @@ public class MessengerDBContext : DbContext
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Interaction>().HasKey(nameof(Interaction.User1Id), nameof(Interaction.User2Id));
+        modelBuilder.Entity<Interaction>().HasKey(e => new { e.User1Id, e.User2Id });
+        modelBuilder.Entity<Interaction>().HasQueryFilter(filter => filter.User1Id < filter.User2Id);
+        modelBuilder.Entity<User>().HasIndex(i => i.Email).IsUnique();
     }
     public DbSet<User> Users { get; set; }
     public DbSet<Interaction> Interactions { get; set; }
