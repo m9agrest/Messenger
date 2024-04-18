@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Jr3k7WvFUxT3kEFOe6wc+PTkG0Ob+PqcscSSwPUF96gJWNzhLfuBJunZZzpazaCRcRbnzY1rL5gxFPttFZz1QQ==",
+  "dgSpecHash": "bMF4J/g1eHPrmpe/xqy+MkagFTrEE/EBoySNv+IyTA+FaA3eTvQlTFPaKillmLnFlpkazliHpq8LVxvXp2GaFQ==",
   "success": true,
-  "projectFilePath": "D:\\GitHub\\Institute\\semester 6\\DDPS\\work_2\\work_2.csproj",
+  "projectFilePath": "D:\\GitHub\\Messenger\\Project\\work_2.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mina987\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\mina987\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

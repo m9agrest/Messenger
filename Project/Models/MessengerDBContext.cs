@@ -6,8 +6,12 @@ public class MessengerDBContext : DbContext
     {
 
     }
-    public DbSet<User> User { get; set; }
-    public DbSet<Interaction> Interaction { get; set; }
-    public DbSet<Message> Chat { get; set; }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Interaction>().HasKey(nameof(Interaction.User1Id), nameof(Interaction.User2Id));
+    }
+    public DbSet<User> Users { get; set; }
+    public DbSet<Interaction> Interactions { get; set; }
+    public DbSet<Message> Chats { get; set; }
 
 }

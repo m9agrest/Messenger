@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GitHub\\Institute\\semester 6\\DDPS\\work_2\\work_2.csproj": {}
+    "D:\\GitHub\\Messenger\\Project\\work_2.csproj": {}
   },
   "projects": {
-    "D:\\GitHub\\Institute\\semester 6\\DDPS\\work_2\\work_2.csproj": {
+    "D:\\GitHub\\Messenger\\Project\\work_2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GitHub\\Institute\\semester 6\\DDPS\\work_2\\work_2.csproj",
+        "projectUniqueName": "D:\\GitHub\\Messenger\\Project\\work_2.csproj",
         "projectName": "work_2",
-        "projectPath": "D:\\GitHub\\Institute\\semester 6\\DDPS\\work_2\\work_2.csproj",
+        "projectPath": "D:\\GitHub\\Messenger\\Project\\work_2.csproj",
         "packagesPath": "C:\\Users\\mina987\\.nuget\\packages\\",
-        "outputPath": "D:\\GitHub\\Institute\\semester 6\\DDPS\\work_2\\obj\\",
+        "outputPath": "D:\\GitHub\\Messenger\\Project\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\DevExpress 22.2\\Components\\Offline Packages",

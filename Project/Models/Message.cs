@@ -12,34 +12,34 @@ public class Message
 
 
     [Column(Order = 1)]
-    [ForeignKey(nameof(Sender))]
-    public int SenderId { get; set; }
-
     [Required(ErrorMessage = "Укажите отправителя")]
     [Display(Name = "Отправитель")]
+    public int SenderId { get; set; }
+
+    [ForeignKey(nameof(SenderId))]
     public User Sender { get; set; }
 
 
 
     [Column(Order = 2)]
-    [ForeignKey(nameof(Recipient))]
-    public int RecipientId { get; set; }
-
     [Required(ErrorMessage = "Укажите получателя")]
     [Display(Name = "Получатель")]
+    public int RecipientId { get; set; }
+
+    [ForeignKey(nameof(RecipientId))]
     public User Recipient { get; set; }
 
 
 
     [DataType(DataType.DateTime)]
     [Display(Name = "Время отправления")]
-    public DateTime Date { get; set; } = DateTime.Now;
+    public DateTime Date { get; set; };
 
 
 
     [DataType(DataType.DateTime)]
     [Display(Name = "Время изменения")]
-    public DateTime DateEdit { get; set; } = DateTime.Now;
+    public DateTime DateEdit { get; set; };
 
 
 
@@ -50,7 +50,7 @@ public class Message
     [MaxLength(1000)]
     [DataType(DataType.MultilineText)]
     [Display(Name = "Текст сообщения")]
-    public string Text { get; set; } = "";
+    public string Text { get; set; };
 
 
 
