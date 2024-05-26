@@ -1,0 +1,22 @@
+﻿@model SimpleMessenger.Models.User
+
+@{
+    ViewData["Title"] = "Вход";
+}
+<h1>Вход в аккаунт</h1>
+
+<form asp-action="Login" method="post">
+    <div asp-validation-summary="All"></div>
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+    <div>
+        <label asp-for="Password"></label>
+        <input asp-for="Password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+    <button type="submit">Войти</button>
+</form>
+<a asp-action="Registration">Или Зарегистрироваться</a>

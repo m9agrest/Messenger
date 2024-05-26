@@ -1,0 +1,144 @@
+﻿@model SimpleMessenger.Controllers.AccountController.Account
+@{
+	ViewData["Title"] = Model.User.Name;
+}
+<h1>Профиль пользователя</h1>
+
+<p>Имя: @Model.User.Name</p>
+<p>
+	Фотография: @if (Model.User.Photo != null)
+	{
+		<img src="/uploads/@Model.User.Photo" style="max-width: 200px; max-height: 200px;" />
+	}
+</p>
+@if (Model.Session)
+{
+	if (Model.Interaction != null)
+	{
+		if(Model.Interaction.Type != TypeInteraction.None)
+		{
+			if(Model.Interaction.Type == TypeInteraction.Friend)
+			{
+				<form asp-action="Interaction" method="post">
+					<input name="id" type="hidden" value="@Model.User.Id" />
+					<input name="type" type="hidden" value="0" />
+					<button type="submit" class="btn btn-primary">Удалить из друзей</button>
+				</form>
+				<form asp-action="Interaction" method="post">
+					<input name="id" type="hidden" value="@Model.User.Id" />
+					<input name="type" type="hidden" value="-1" />
+					<button type="submit" class="btn btn-primary">Заблокировать</button>
+				</form>
+				<form asp-controller="Chat" asp-action="Index" asp-route-id="@Model.User.Id"><button type="submit" class="btn btn-primary">Написать сообщение</button></form>
+			}
+			else if(
+				(Model.Interaction.Type == TypeInteraction.Subscriber && Model.Interaction.User1Id == Model.User.Id) ||
+				(Model.Interaction.Type == TypeInteraction.Subscription && Model.Interaction.User2Id == Model.User.Id))
+			{
+				<form asp-action="Interaction" method="post">
+					<input name="id" type="hidden" value="@Model.User.Id" />
+					<input name="type" type="hidden" value="1" />
+					<button type="submit" class="btn btn-primary">Принять в друзья</button>
+				</form>
+				<form asp-action="Interaction" method="post">
+					<input name="id" type="hidden" value="@Model.User.Id" />
+					<input name="type" type="hidden" value="-1" />
+					<button type="submit" class="btn btn-primary">Заблокировать</button>
+				</form>
+				<form asp-controller="Chat" asp-action="Index" asp-route-id="@Model.User.Id"><button type="submit" class="btn btn-primary">Написать сообщение</button></form>
+			}
+			else if(
+				Model.Interaction.Type == TypeInteraction.Subscription && Model.Interaction.User1Id == Model.User.Id ||
+				Model.Interaction.Type == TypeInteraction.Subscriber && Model.Interaction.User2Id == Model.User.Id)
+			{
+				<form asp-action="Interaction" method="post">
+					<input name="id" type="hidden" value="@Model.User.Id" />
+					<input name="type" type="hidden" value="0" />
+					<button type="submit" class="btn btn-primary">Отменить запрос в друзья</button>
+				</form>
+				<form asp-action="Interaction" method="post">
+					<input name="id" type="hidden" value="@Model.User.Id" />
+					<input name="type" type="hidden" value="-1" />
+					<button type="submit" class="btn btn-primary">Заблокировать</button>
+				</form>
+				<form asp-controller="Chat" asp-action="Index" asp-route-id="@Model.User.Id"><button type="submit" class="btn btn-primary">Написать сообщение</button></form>
+			}
+			else if(Model.Interaction.Type == TypeInteraction.Enemy)
+			{
+				<h2>Вы абоюдно заблокированны</h2>
+				<form asp-action="Interaction" method="post">
+					<input name="id" type="hidden" value="@Model.User.Id" />
+					<input name="type" type="hidden" value="0" />
+					<button type="submit" class="btn btn-primary">Разблокировать</button>
+				</form>
+			}
+			else if(
+				Model.Interaction.Type == TypeInteraction.Blocker && Model.Interaction.User1Id == Model.User.Id ||
+				Model.Interaction.Type == TypeInteraction.Blocked && Model.Interaction.User2Id == Model.User.Id)
+			{
+				<h2>Вы заблокировали этого человека</h2>
+				<form asp-action="Interaction" method="post">
+					<input name="id" type="hidden" value="@Model.User.Id" />
+					<input name="type" type="hidden" value="0" />
+					<button type="submit" class="btn btn-primary">Разблокировать</button>
+				</form>
+			}
+			else if(
+				(Model.Interaction.Type == TypeInteraction.Blocked && Model.Interaction.User1Id == Model.User.Id) ||
+				(Model.Interaction.Type == TypeInteraction.Blocker && Model.Interaction.User2Id == Model.User.Id))
+			{
+				<h2>Этот пользователь вас заблокировал</h2>
+				<form asp-action="Interaction" method="post">
+					<input name="id" type="hidden" value="@Model.User.Id" />
+					<input name="type" type="hidden" value="-1" />
+					<button type="submit" class="btn btn-primary">Заблокировать</button>
+				</form>
+			}
+			else
+			{
+				<form asp-action="Interaction" method="post">
+					<input name="id" type="hidden" value="@Model.User.Id" />
+					<input name="type" type="hidden" value="1" />
+					<button type="submit" class="btn btn-primary">Отправить запрос в друзья</button>
+				</form>
+				<form asp-action="Interaction" method="post">
+					<input name="id" type="hidden" value="@Model.User.Id" />
+					<input name="type" type="hidden" value="-1" />
+					<button type="submit" class="btn btn-primary">Заблокировать</button>
+				</form>
+				<form asp-controller="Chat" asp-action="Index" asp-route-id="@Model.User.Id"><button type="submit" class="btn btn-primary">Написать сообщение</button></form>
+			}
+		}
+		else
+		{
+			<form asp-action="Interaction" method="post">
+				<input name="id" type="hidden" value="@Model.User.Id" />
+				<input name="type" type="hidden" value="1" />
+				<button type="submit" class="btn btn-primary">Отправить запрос в друзья</button>
+			</form>
+			<form asp-action="Interaction" method="post">
+				<input name="id" type="hidden" value="@Model.User.Id" />
+				<input name="type" type="hidden" value="-1" />
+				<button type="submit" class="btn btn-primary">Заблокировать</button>
+			</form>
+			<form asp-controller="Chat" asp-action="Index" asp-route-id="@Model.User.Id"><button type="submit" class="btn btn-primary">Написать сообщение</button></form>
+		}
+	}
+	else
+	{
+		<form asp-action="Interaction" method="post">
+			<input name="id" type="hidden" value="@Model.User.Id" />
+			<input name="type" type="hidden" value="1" />
+			<button type="submit" class="btn btn-primary">Отправить запрос в друзья</button>
+		</form>
+		<form asp-action="Interaction" method="post">
+			<input name="id" type="hidden" value="@Model.User.Id" />
+			<input name="type" type="hidden" value="-1" />
+			<button type="submit" class="btn btn-primary">Заблокировать</button>
+		</form>
+		<form asp-controller="Chat" asp-action="Index" asp-route-id="@Model.User.Id">
+			<button type="submit" class="btn btn-primary">Написать сообщение</button>
+		</form>
+		
+	}
+}

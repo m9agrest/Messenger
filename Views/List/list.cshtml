@@ -1,0 +1,44 @@
+﻿@model IEnumerable<User>
+@{
+    ViewData["Title"] = "Список людей";
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a class="nav-link text-dark" asp-area="" asp-controller="List" asp-action="Index">Все пользователи</a>
+            </th>
+            <th>
+                <a class="nav-link text-dark" asp-area="" asp-controller="List" asp-action="Friend">Друзья</a>
+            </th>
+            <th>
+                <a class="nav-link text-dark" asp-area="" asp-controller="List" asp-action="Subscriber">Подписчики</a>
+            </th>
+            <th>
+                <a class="nav-link text-dark" asp-area="" asp-controller="List" asp-action="Subscription">Подписки</a>
+            </th>
+            <th>
+                <a class="nav-link text-dark" asp-area="" asp-controller="List" asp-action="Blocked">Заблокированные</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+
+@foreach (var item in Model)
+{
+    <div style="border: solid 1px black; border-radius: 5px;">
+        <form asp-controller="Chat" asp-action="Index" asp-route-id="@item.Id">
+
+        <a asp-area="" asp-controller="Account" asp-action="Index" asp-route-id="@item.Id">
+            <img src="/uploads/@item.Photo" style="max-width: 45px; max-height: 45px;">
+                @item.Name
+            </a>
+            &emsp;
+            <button type="submit" class="btn btn-primary">Чат</button>
+        </form>
+    </div>
+    <br />
+}
+

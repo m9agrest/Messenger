@@ -1,0 +1,39 @@
+﻿@model IEnumerable<SimpleMessenger.Models.Interaction>
+
+@{
+    ViewData["Title"] = "Отношения";
+}
+
+<h1>Отношения</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.User1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User1.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User2.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

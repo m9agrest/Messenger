@@ -1,0 +1,60 @@
+﻿@model IEnumerable<SimpleMessenger.Models.Message>
+
+@{
+    ViewData["Title"] = "Сообщения";
+}
+
+<h1>Сообщения</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Sender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Recipient)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateEdit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Text)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Photo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sender.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Recipient.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateEdit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            <td>
+                    <img src="/uploads/@item.Photo" style="max-width: 45px; max-height: 45px;">
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">Подробно</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

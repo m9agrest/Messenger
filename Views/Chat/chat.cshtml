@@ -1,0 +1,37 @@
+﻿@model SimpleMessenger.Controllers.ChatController.ChatData
+@{
+    ViewData["Title"] = "Чат с " + Model.User.Name;
+}
+<h1>Чат с <a asp-area="" asp-controller="Account" asp-action="Index" asp-route-id="@Model.User.Id">@Model.User.Name</a></h1>
+
+@foreach (var item in Model.Messages)
+{
+    <div style="border: solid 1px black; border-radius: 5px;">
+        <p asp-area="" asp-controller="Account" asp-action="Index" asp-route-id="@item.SenderId">
+            @if (item.SenderId == @Model.User.Id)
+            {
+                @Model.User.Name
+            }
+            else
+            {
+                @Model.Me.Name
+            }
+        </p>
+        <p style="font-size: 10pt;">Время: @item.Date.ToString()</p>
+        <p>@item.Text</p>
+        @if (item.Photo != null)
+        {
+            <p><img src="/uploads/@item.Photo" style="max-width: 200px; max-height: 200px;"></p>
+        }
+    </div>
+    <br />
+}
+@if (!Model.Blocked)
+{
+    <form asp-action="Send" method="post" enctype="multipart/form-data">
+        <input name="id" type="hidden" value="@Model.User.Id" />
+        <input name="text" />
+        <input type="file" name="photo" />
+        <button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
+}

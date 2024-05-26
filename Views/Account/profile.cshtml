@@ -1,0 +1,18 @@
+﻿@model SimpleMessenger.Models.User
+@{
+    ViewData["Title"] = "Ваш профиль";
+}
+<h1>Ваш профиль</h1>
+
+<form asp-action="Update" method="post" enctype="multipart/form-data">
+	<p>Имя <input name="name" value="@Model.Name" /></p>
+	<p>
+		Фотография: @if (Model.Photo != null)
+		{
+			<img src="/uploads/@Model.Photo" style="max-width: 200px; max-height: 200px;" />
+		}
+		<input type="file" name="photo"/>
+	</p>
+	<p>Email: @Model.Email</p>
+    <button type="submit" class="btn btn-primary">Обновить данные</button>
+</form>

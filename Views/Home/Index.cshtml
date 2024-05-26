@@ -1,0 +1,15 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "Основная страница";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Добро пожаловать</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @if (HttpContextAccessor.HttpContext.Session.GetInt32("UserId") != null && HttpContextAccessor.HttpContext.Session.GetInt32("UserId") < Program.Admin)
+    {
+        <a href="/Users">Пользователи</a>
+        <a href="/Messages">Сообщения</a>
+        <a href="/Interactions">Отношения</a>
+    }
+</div>

@@ -1,0 +1,32 @@
+﻿@model SimpleMessenger.Models.User
+
+@{
+    ViewData["Title"] = "Пользователь";
+}
+<div>
+    <h4>@Model.Name</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Photo)
+        </dt>
+        <dd class = "col-sm-10">
+            <img src="/uploads/@Model.Photo" style="max-width: 200px; max-height: 200px;">
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Назад</a>
+</div>
