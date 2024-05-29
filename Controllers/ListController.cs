@@ -93,9 +93,5 @@ namespace SimpleMessenger.Controllers
             }
             return NotFound();
         }
-
-
-
-        
     }
 }

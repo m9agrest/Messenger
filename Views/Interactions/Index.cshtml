@@ -5,7 +5,9 @@
 }
 
 <h1>Отношения</h1>
-
+<div>
+    <a asp-action="GetReport">Отчет</a>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -25,10 +27,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.User1.Email)
+                @Html.DisplayFor(modelItem => item.User1.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User2.Email)
+                @Html.DisplayFor(modelItem => item.User2.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Type)

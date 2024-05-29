@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
 using SimpleMessenger.Data;
 using SimpleMessenger.Models;
+using LicenseContext = OfficeOpenXml.LicenseContext;
 
 namespace SimpleMessenger.Controllers
 {
@@ -14,11 +17,12 @@ namespace SimpleMessenger.Controllers
     {
         private readonly AppDbContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public UsersController(AppDbContext context, IHttpContextAccessor httpContextAccessor)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public UsersController(AppDbContext context, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;
+            _webHostEnvironment = webHostEnvironment;
         }
         private User getUser()
         {
@@ -68,6 +72,55 @@ namespace SimpleMessenger.Controllers
             }
 
             return View(user);
+        }
+
+
+        public FileResult GetReport()
+        {
+            var user = getUser();
+            if (user == null || user.Id >= Program.Admin)
+            {
+                return File(new byte[] { }, "application/vnd.openxmlformatsofficedocument.spreadsheetml.sheet");
+            }
+            // Путь к файлу с шаблоном
+            string path = "/Reports/Users.xlsx";
+            //Путь к файлу с результатом
+            string result = "/Reports/UsersReport.xlsx";
+            FileInfo fi = new FileInfo(_webHostEnvironment.WebRootPath + path);
+            FileInfo fr = new FileInfo(_webHostEnvironment.WebRootPath + result);
+            //будем использовть библитотеку не для коммерческого использования
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            //открываем файл с шаблоном
+            using (ExcelPackage excelPackage = new ExcelPackage(fi))
+            {
+                //устанавливаем поля документа
+                excelPackage.Workbook.Properties.Author = "SimpleMessenger";
+                excelPackage.Workbook.Properties.Title = "Пользователи";
+                excelPackage.Workbook.Properties.Subject = "Список всех пользователей проекта";
+                excelPackage.Workbook.Properties.Created = DateTime.Now;
+                //плучаем лист по имени.
+                ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets["Users"];
+                //получаем списко пользователей и в цикле заполняем лист данными
+                int startLine = 2;
+                List<User> Items = _context.Users.ToList();
+                foreach (User item in Items)
+                {
+                    if (item != null)
+                    {
+                        worksheet.Cells[startLine, 1].Value = item.Id;
+                        worksheet.Cells[startLine, 2].Value = item.Name;
+                        worksheet.Cells[startLine, 3].Value = item.Email;
+                        startLine++;
+                    }
+                }
+                //созраняем в новое место
+                excelPackage.SaveAs(fr);
+            }
+            // Тип файла - content-type
+            string file_type = "application/vnd.openxmlformatsofficedocument.spreadsheetml.sheet";
+            // Имя файла - необязательно
+            string file_name = "UsersReport.xlsx";
+            return File(result, file_type, file_name);
         }
     }
 }
